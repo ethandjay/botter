@@ -24,6 +24,8 @@ def get_tweets(screen_name):
 		max_id = timeline[-1]['id'] - 1
 		payload = {'screen_name':screen_name,'include_rts':False,'count':200,'max_id':max_id}
 		timeline = requests.get('https://api.twitter.com/1.1/statuses/user_timeline.json', auth=oauth, params=payload).json()
+		if timeline == []:
+			break
 		full_timeline += timeline
 
 	# Write tweets to src file
@@ -52,4 +54,6 @@ if not os.path.isfile('src/'+screen_name+'.txt'):
 
 tweetfile = open('src/'+screen_name+'.txt','r')
 model = markovify.NewlineText(tweetfile.read())
-print model.make_short_sentence(140)
+tweet = model.make_short_sentence(140)
+
+print tweet
