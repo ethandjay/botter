@@ -14,6 +14,7 @@ config.py:
     }
 
 **Requires**: markovify, requests
+
 **Usage**: python botter.py [Twitter handle (no @)]
 
 **Have fun!**
