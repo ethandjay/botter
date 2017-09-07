@@ -1,6 +1,6 @@
 import markovify
 import requests
-import sys
+import sys, errno
 import os, json
 from config import settings    #import authorization settings
 from requests_oauthlib import OAuth1
@@ -47,6 +47,14 @@ if (len(sys.argv) != 2):
 	sys.exit()
 
 screen_name = sys.argv[1]
+
+if not os.path.exists(os.path.dirname('src/'+screen_name)):
+    try:
+        os.makedirs(os.path.dirname('src/'+screen_name))
+    except OSError as exc: # Guard against race condition
+        if exc.errno != errno.EEXIST:
+            raise
+# thanks https://stackoverflow.com/questions/12517451/automatically-creating-directories-with-file-output
 
 # If source doesn't exist for user, make one
 if not os.path.isfile('src/'+screen_name+'.txt'):
