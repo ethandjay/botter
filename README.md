@@ -13,6 +13,7 @@ config.py:
       'access_token_secret': 'xxxx'
     }
 
+**Requires**: markovify, requests
 **Usage**: python botter.py [Twitter handle (no @)]
 
 **Have fun!**
